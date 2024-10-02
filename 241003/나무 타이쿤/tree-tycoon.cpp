@@ -9,14 +9,14 @@ int p;  //이동
 int map[15][15];
 int med[15][15];
 int med_r[15][15];
-int wait_q[15][3];
+//int wait_q[15][3];
 int rule[100][2]; // 0: 방향, 1: 이동 칸
 int dx[8] = {1, 1, 0, -1, -1, -1, 0, 1};
 int dy[8] = {0, -1, -1, -1, 0, 1, 1, 1};
 int dx1[4] = {-1, 1, 1, -1};
 int dy1[4] = {-1, -1, 1, 1};
 
-int wait_index = 0;
+//int wait_index = 0;
 
 void dump() {
     for (int i = 0; i < n; i++) {
@@ -84,24 +84,12 @@ void insert_med() {
                         continue;
                     }
                 }
-                wait_q[wait_index][0] = i;
-                wait_q[wait_index][1] = j;
-                wait_q[wait_index][2] = count;
-                wait_index++;
-
+                map[i][j] += count;
                 med[i][j] = -1;
             }
         }
     }
-    for (int i = 0; i <= wait_index; i++) {
-        map[wait_q[i][0]][wait_q[i][1]] += wait_q[i][2];
-        wait_q[i][0] = 0;
-        wait_q[i][1] = 0;
-        wait_q[i][2] = 0;
-
-
-    }
-    wait_index = 0;
+   
     
 
 }
