@@ -20,7 +20,7 @@ int dead_count;
 void dump_map() {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            cout << calc_map[i][j] << " ";
+            cout << map[i][j] << " ";
         }
         cout << "\n";
     }
@@ -58,6 +58,7 @@ void tree_set_dead() {
                 int ny = 0;
                 int nx = 0;
                 map[i][j] = 0;
+                dead[i][j] = c;
                 for (int p = 0; p < 4; p++) {
                     for (int q = 1; q <= k; q++) {
                         ny = i + q * dy1[p];
@@ -122,7 +123,7 @@ void tree_dup() {
                     ny = i + dy[k];
                     nx = j + dx[k];
                     if(is_range(ny, nx)) {
-                        if (map[ny][nx] == 0 && dead[i][j] == 0) {
+                        if (map[ny][nx] == 0 && dead[ny][nx] == 0) {
                             t_count++;
                         }
                     }
@@ -131,7 +132,7 @@ void tree_dup() {
                     ny = i + dy[k];
                     nx = j + dx[k];
                     if(is_range(ny, nx)) {
-                        if (map[ny][nx] == 0 && dead[i][j] == 0) {
+                        if (map[ny][nx] == 0 && dead[ny][nx] == 0) {
                             re_map[ny][nx] += (map[i][j] / t_count);
                         }
                     }
@@ -183,12 +184,16 @@ int main() {
     parse_input();
     for (int i = 1; i <= m; i++) {
         tree_grow();
+        
         //dump_map();
         tree_dup();
+        
         //dump_map();
         tree_calc_dead();
         //dump_map();
         tree_set_dead();
+   
+            //dump_map();
 
         for (int u = 0; u < n; u++) {
             for (int j = 0; j < n; j++) {
